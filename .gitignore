@@ -1,5 +1,8 @@
-node_modules/
-dist/
-.env
+# Godot ignores
+.godot/
+*.import
+export_presets.cfg
+
+# OS generated files
 .DS_Store
-*.log
+Thumbs.db
