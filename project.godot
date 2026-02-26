@@ -1,0 +1,39 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[display]
+
+window/size/initial_screen=0
+window/size/always_on_top=false
+
+[application]
+
+config/name="Harness"
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+config/custom_window_target_screen=-1
+config/custom_window_always_on_top=false
+
+[autoload]
+
+WindowSetup="*res://game/WindowSetup.cs"
+DevTools="*res://game/DevTools.cs"
+
+[dotnet]
+
+project/assembly_name="Harness"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"

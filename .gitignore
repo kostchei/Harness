@@ -1,7 +1,22 @@
-# Godot ignores
+# Godot
 .godot/
-*.import
 export_presets.cfg
+/.import/
+/build/
+/dist/
+*.pck
+
+# .NET / C#
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
 
 # OS generated files
 .DS_Store
