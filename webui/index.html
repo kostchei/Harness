@@ -1,0 +1,139 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Harness DevTools Web UI</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>Harness DevTools</h1>
+      <p>Quick controls for a running Godot harness instance.</p>
+    </header>
+
+    <section class="panel settings">
+      <h2>Connection</h2>
+      <label>
+        API Base URL
+        <input id="apiBase" type="url" value="http://127.0.0.1:8765" />
+      </label>
+      <div class="row">
+        <button id="healthBtn">Check API</button>
+        <button id="pingBtn">Ping Game</button>
+      </div>
+      <p id="status" class="status">Idle</p>
+    </section>
+
+    <section class="panel actions">
+      <h2>Quick Actions</h2>
+      <label>
+        Screenshot Filename (optional)
+        <input id="screenshotName" type="text" placeholder="verification.png" />
+      </label>
+      <div class="grid">
+        <button data-action="screenshot" id="shotBtn">Screenshot</button>
+        <button data-action="validate_all_scenes" id="validateBtn">Validate All Scenes</button>
+        <button data-action="performance" id="perfBtn">Performance</button>
+        <button data-action="scene_tree" id="treeBtn">Scene Tree</button>
+        <button data-action="input_clear" id="clearInputBtn">Clear Input</button>
+        <button data-action="quit" id="quitBtn" class="danger">Quit Game</button>
+      </div>
+    </section>
+
+    <section class="panel advanced">
+      <h2>Custom Command</h2>
+      <label>
+        Action
+        <input id="customAction" type="text" placeholder="get_state" />
+      </label>
+      <label>
+        Args JSON
+        <textarea id="customArgs" rows="5" placeholder='{"node_path":"/root"}'></textarea>
+      </label>
+      <label>
+        Timeout (seconds)
+        <input id="customTimeout" type="number" step="0.1" value="30" />
+      </label>
+      <button id="customRunBtn">Run Custom Command</button>
+    </section>
+
+    <section class="panel llm">
+      <h2>LLM Backends</h2>
+      <div class="grid">
+        <label>
+          Provider
+          <select id="llmProvider">
+            <option value="openai">OpenAI</option>
+            <option value="anthropic">Anthropic</option>
+            <option value="gemini">Gemini (Google)</option>
+            <option value="lmstudio">LM Studio (Local)</option>
+            <option value="ollama">Ollama (Local)</option>
+          </select>
+        </label>
+        <label>
+          Model
+          <input id="llmModel" type="text" value="gpt-4.1-mini" />
+        </label>
+      </div>
+      <div class="grid">
+        <label>
+          Base URL
+          <input id="llmBaseUrl" type="text" placeholder="Optional override" />
+        </label>
+        <label>
+          API Key
+          <input id="llmApiKey" type="password" placeholder="Required for cloud providers" />
+        </label>
+      </div>
+      <div class="grid">
+        <label>
+          Saved Key Name
+          <input id="llmKeyName" type="text" placeholder="openai-main" />
+        </label>
+        <label>
+          Secret Store
+          <input id="secretStatus" type="text" value="Unknown" readonly />
+        </label>
+      </div>
+      <div class="row">
+        <button id="secretStatusBtn">Check Secret Store</button>
+        <button id="secretListBtn">List Saved Keys</button>
+      </div>
+      <div class="row">
+        <button id="secretSaveBtn">Save Key</button>
+        <button id="secretLoadBtn">Load Key</button>
+      </div>
+      <div class="row">
+        <button id="secretDeleteBtn" class="danger">Delete Key</button>
+        <button id="llmUseSavedBtn">Run Using Saved Key Name</button>
+      </div>
+      <div class="grid">
+        <label>
+          Temperature
+          <input id="llmTemperature" type="number" step="0.1" placeholder="Optional" />
+        </label>
+        <label>
+          Max Tokens
+          <input id="llmMaxTokens" type="number" step="1" placeholder="Optional" />
+        </label>
+      </div>
+      <label>
+        Prompt
+        <textarea id="llmPrompt" rows="5" placeholder="Write a prompt for the selected provider"></textarea>
+      </label>
+      <div class="row">
+        <button id="llmProvidersBtn">Load Provider Info</button>
+        <button id="llmRunBtn">Run LLM Chat</button>
+      </div>
+    </section>
+
+    <section class="panel output">
+      <h2>Output</h2>
+      <pre id="output">No command run yet.</pre>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

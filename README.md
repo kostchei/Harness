@@ -56,9 +56,18 @@ python tools/devtools.py screenshot --filename verification.png
 python tools/devtools.py validate-all
 python tools/devtools.py performance
 python tools/devtools.py input clear
+
+# Optional Web UI (serves UI + local API bridge)
+python tools/devtools_web.py --project . --host 127.0.0.1 --port 8765
+# Open http://127.0.0.1:8765
+# Includes LLM backend panel: OpenAI, Anthropic, Gemini, LM Studio, Ollama
+
+# Optional (recommended): secure OS keychain support for API keys
+python -m pip install keyring
 ```
 
 ## Notes
 
 - `tools/test.ps1` runs gdUnit4 tests and expects `addons/gdUnit4` to be installed.
 - Window behavior is configurable; see `docs/window-placement.md`.
+- Web UI details and static-host setup: `docs/web-ui.md`.
