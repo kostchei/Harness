@@ -12,6 +12,16 @@ python tools/devtools_web.py --project . --host 127.0.0.1 --port 8765
 
 Open: `http://127.0.0.1:8765`
 
+## VS Code-hosted panel
+
+If you want the same UI embedded in VS Code, use the local extension scaffold in `vscode-extension/`:
+
+1. Launch Extension Development Host (`F5` from `vscode-extension`)
+1. Run `Harness: Start Agent Bridge`
+1. Run `Harness: Open Agent Panel`
+
+The panel renders this same web UI in a VS Code webview and adds command-palette actions for guardrails and runtime quick actions.
+
 ## Static-hosted UI + local API
 
 You can host `webui/` on any static host (GitHub Pages, Netlify, Azure Static Web Apps) and keep the API bridge local:

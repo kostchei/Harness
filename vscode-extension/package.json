@@ -1,0 +1,144 @@
+{
+  "name": "harness-agent",
+  "displayName": "Harness Agent",
+  "description": "VS Code control surface for Harness DevTools bridge, guardrails, and runtime actions.",
+  "version": "0.1.0",
+  "publisher": "harness-local",
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:harnessAgent.startBridge",
+    "onCommand:harnessAgent.stopBridge",
+    "onCommand:harnessAgent.openPanel",
+    "onCommand:harnessAgent.checkHealth",
+    "onCommand:harnessAgent.runGuardrails",
+    "onCommand:harnessAgent.runBuild",
+    "onCommand:harnessAgent.runLint",
+    "onCommand:harnessAgent.runTests",
+    "onCommand:harnessAgent.runtimePing",
+    "onCommand:harnessAgent.runtimeScreenshot",
+    "onCommand:harnessAgent.runtimeValidateAll",
+    "onCommand:harnessAgent.runtimePerformance",
+    "onCommand:harnessAgent.runtimeSceneTree",
+    "onCommand:harnessAgent.runtimeClearInput",
+    "onCommand:harnessAgent.runtimeQuit"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "harnessAgent.startBridge",
+        "title": "Harness: Start Agent Bridge"
+      },
+      {
+        "command": "harnessAgent.stopBridge",
+        "title": "Harness: Stop Agent Bridge"
+      },
+      {
+        "command": "harnessAgent.openPanel",
+        "title": "Harness: Open Agent Panel"
+      },
+      {
+        "command": "harnessAgent.checkHealth",
+        "title": "Harness: Check Bridge Health"
+      },
+      {
+        "command": "harnessAgent.runGuardrails",
+        "title": "Harness: Run Guardrails"
+      },
+      {
+        "command": "harnessAgent.runBuild",
+        "title": "Harness: Build"
+      },
+      {
+        "command": "harnessAgent.runLint",
+        "title": "Harness: Lint"
+      },
+      {
+        "command": "harnessAgent.runTests",
+        "title": "Harness: Test"
+      },
+      {
+        "command": "harnessAgent.runtimePing",
+        "title": "Harness: Runtime Ping"
+      },
+      {
+        "command": "harnessAgent.runtimeScreenshot",
+        "title": "Harness: Runtime Screenshot"
+      },
+      {
+        "command": "harnessAgent.runtimeValidateAll",
+        "title": "Harness: Runtime Validate All Scenes"
+      },
+      {
+        "command": "harnessAgent.runtimePerformance",
+        "title": "Harness: Runtime Performance Sample"
+      },
+      {
+        "command": "harnessAgent.runtimeSceneTree",
+        "title": "Harness: Runtime Scene Tree"
+      },
+      {
+        "command": "harnessAgent.runtimeClearInput",
+        "title": "Harness: Runtime Clear Inputs"
+      },
+      {
+        "command": "harnessAgent.runtimeQuit",
+        "title": "Harness: Runtime Quit Game"
+      }
+    ],
+    "configuration": {
+      "title": "Harness Agent",
+      "properties": {
+        "harnessAgent.pythonPath": {
+          "type": "string",
+          "default": "python",
+          "description": "Python executable used to launch the bridge."
+        },
+        "harnessAgent.host": {
+          "type": "string",
+          "default": "127.0.0.1",
+          "description": "Host binding for the Harness bridge."
+        },
+        "harnessAgent.port": {
+          "type": "number",
+          "default": 8765,
+          "description": "Port for the Harness bridge."
+        },
+        "harnessAgent.projectPath": {
+          "type": "string",
+          "default": ".",
+          "description": "Harness project path relative to the workspace root."
+        },
+        "harnessAgent.bridgeScript": {
+          "type": "string",
+          "default": "tools/devtools_web.py",
+          "description": "Bridge script path relative to the workspace root."
+        },
+        "harnessAgent.guardrails.buildCommand": {
+          "type": "string",
+          "default": "dotnet build -warnaserror",
+          "description": "Command used by Harness: Build."
+        },
+        "harnessAgent.guardrails.lintCommand": {
+          "type": "string",
+          "default": "pwsh ./tools/godot.ps1 --headless --script res://tools/lint_project.gd ; pwsh ./tools/godot.ps1 --headless --script res://tools/lint_shaders.gd",
+          "description": "Command used by Harness: Lint."
+        },
+        "harnessAgent.guardrails.testCommand": {
+          "type": "string",
+          "default": "pwsh ./tools/test.ps1",
+          "description": "Command used by Harness: Test."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "echo \"No lint step configured\""
+  },
+  "devDependencies": {}
+}

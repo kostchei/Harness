@@ -66,8 +66,28 @@ python tools/devtools_web.py --project . --host 127.0.0.1 --port 8765
 python -m pip install keyring
 ```
 
+## VS Code Agent Plugin
+
+Harness includes a local VS Code extension scaffold at `vscode-extension/` so you can run the agent workflow in-editor (Roo-style):
+
+- Start/stop bridge
+- Open embedded web panel
+- Run guardrails (build/lint/test)
+- Trigger runtime quick actions
+
+Run it in an Extension Development Host:
+
+```powershell
+code vscode-extension
+# Press F5 in VS Code, then use Command Palette:
+# Harness: Start Agent Bridge
+# Harness: Open Agent Panel
+```
+
 ## Notes
 
 - `tools/test.ps1` runs gdUnit4 tests and expects `addons/gdUnit4` to be installed.
 - Window behavior is configurable; see `docs/window-placement.md`.
 - Web UI details and static-host setup: `docs/web-ui.md`.
+- VS Code extension guide: `docs/vscode-extension.md`.
+- VS Code extension details: `vscode-extension/README.md`.
