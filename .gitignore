@@ -1,6 +1,7 @@
 # Godot
 .godot/
 export_presets.cfg
+export.cfg
 /.import/
 /build/
 /dist/
@@ -12,11 +13,17 @@ obj/
 *.user
 *.suo
 .vs/
+.mono/
 
 # Python
 __pycache__/
 *.py[cod]
 .venv/
+
+# IDE/editor local workspace files
+*.code-workspace
+.vscode/
+.idea/
 
 # OS generated files
 .DS_Store
