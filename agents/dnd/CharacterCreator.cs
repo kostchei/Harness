@@ -120,7 +120,7 @@ namespace Harness.Agents.Dnd
             var (hitDie, skills, proficiencies, spells, features, startingAC) =
                 GetClassDefaults(className, dex);
 
-            int conMod = (con - 10) / 2;
+            int conMod = (int)Math.Floor((con - 10) / 2.0);
             int maxHp = hitDie + conMod;
 
             var character = new Character
@@ -158,7 +158,7 @@ namespace Harness.Agents.Dnd
             List<string> spells, List<string> features, int ac)
             GetClassDefaults(string className, int dex)
         {
-            int dexMod = (dex - 10) / 2;
+            int dexMod = (int)Math.Floor((dex - 10) / 2.0);
             return className.ToLower() switch
             {
                 "fighter" => (10,
