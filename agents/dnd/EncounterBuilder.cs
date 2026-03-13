@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Anthropic.Models.Messages;
+using OpenAI.Chat;
 
 namespace Harness.Agents.Dnd
 {
@@ -15,7 +15,7 @@ namespace Harness.Agents.Dnd
     {
         private readonly Random _rng = new();
 
-        public EncounterBuilder(string apiKey) : base(apiKey) { }
+        public EncounterBuilder(string baseUrl, string modelName) : base(baseUrl, modelName) { }
 
         protected override string AgentName => "EncounterBuilder";
 
@@ -40,7 +40,7 @@ namespace Harness.Agents.Dnd
             Return the finished Encounter as JSON inside <encounter_json> tags.
             """;
 
-        protected override List<ToolUnion> Tools => new()
+        protected override List<ChatTool> Tools => new()
         {
             MakeTool(
                 "build_monster",

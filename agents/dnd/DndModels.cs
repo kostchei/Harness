@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -42,17 +43,17 @@ namespace Harness.Agents.Dnd
         public int Charisma { get; set; }
 
         [JsonIgnore]
-        public int StrMod => (Strength - 10) / 2;
+        public int StrMod => (int)Math.Floor((Strength - 10) / 2.0);
         [JsonIgnore]
-        public int DexMod => (Dexterity - 10) / 2;
+        public int DexMod => (int)Math.Floor((Dexterity - 10) / 2.0);
         [JsonIgnore]
-        public int ConMod => (Constitution - 10) / 2;
+        public int ConMod => (int)Math.Floor((Constitution - 10) / 2.0);
         [JsonIgnore]
-        public int IntMod => (Intelligence - 10) / 2;
+        public int IntMod => (int)Math.Floor((Intelligence - 10) / 2.0);
         [JsonIgnore]
-        public int WisMod => (Wisdom - 10) / 2;
+        public int WisMod => (int)Math.Floor((Wisdom - 10) / 2.0);
         [JsonIgnore]
-        public int ChaMod => (Charisma - 10) / 2;
+        public int ChaMod => (int)Math.Floor((Charisma - 10) / 2.0);
     }
 
     public class Inventory

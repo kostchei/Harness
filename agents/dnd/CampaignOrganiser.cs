@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Anthropic.Models.Messages;
+using OpenAI.Chat;
 
 namespace Harness.Agents.Dnd
 {
@@ -11,7 +11,7 @@ namespace Harness.Agents.Dnd
     /// </summary>
     public class CampaignOrganiser : DndAgent
     {
-        public CampaignOrganiser(string apiKey) : base(apiKey) { }
+        public CampaignOrganiser(string baseUrl, string modelName) : base(baseUrl, modelName) { }
 
         protected override string AgentName => "CampaignOrganiser";
 
@@ -34,7 +34,7 @@ namespace Harness.Agents.Dnd
             orchestrator can parse them.
             """;
 
-        protected override List<ToolUnion> Tools => new()
+        protected override List<ChatTool> Tools => new()
         {
             MakeTool(
                 "log_event",

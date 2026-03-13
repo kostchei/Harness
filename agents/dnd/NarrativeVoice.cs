@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Anthropic.Models.Messages;
+using OpenAI.Chat;
 
 namespace Harness.Agents.Dnd
 {
@@ -12,7 +12,7 @@ namespace Harness.Agents.Dnd
     /// </summary>
     public class NarrativeVoice : DndAgent
     {
-        public NarrativeVoice(string apiKey) : base(apiKey) { }
+        public NarrativeVoice(string baseUrl, string modelName) : base(baseUrl, modelName) { }
 
         protected override string AgentName => "NarrativeVoice";
 
@@ -40,7 +40,7 @@ namespace Harness.Agents.Dnd
             output is always pure prose for the player to read).
             """;
 
-        protected override List<ToolUnion> Tools => new()
+        protected override List<ChatTool> Tools => new()
         {
             MakeTool("narrate_location",
                 "Generate an atmospheric description of a location.",

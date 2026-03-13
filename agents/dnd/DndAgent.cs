@@ -1,173 +1,181 @@
 using System;
+using System.ClientModel;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Anthropic;
-using Anthropic.Models.Messages;
+using OpenAI;
+using OpenAI.Chat;
 
 namespace Harness.Agents.Dnd
 {
     /// <summary>
-    /// Base class for all D&D campaign agents.
-    /// Each agent has a specialised system prompt and a set of tools it can call.
-    /// Agents communicate results back to the orchestrator via structured JSON.
+    /// Base class for all D&amp;D campaign agents.
+    /// Drives LM Studio (or any OpenAI-compatible local server) via the
+    /// OpenAI .NET SDK pointed at http://localhost:1234/v1.
+    ///
+    /// Tool definitions are built with <see cref="MakeTool"/> helpers and
+    /// stored in the <see cref="Tools"/> list. The agentic loop in
+    /// <see cref="ChatAsync"/> keeps calling the model and routing tool calls
+    /// back until the model returns a plain-text response with no further calls.
     /// </summary>
     public abstract class DndAgent
     {
-        protected readonly AnthropicClient Client;
-        protected readonly List<MessageParam> History = new();
+        // ── LM Studio connection ──────────────────────────────────────────────
+        private readonly ChatClient _client;
 
-        private const string Model = "claude-opus-4-6";
-        private const int MaxTokens = 4096;
+        // ── Shared conversation history ───────────────────────────────────────
+        protected readonly List<ChatMessage> History = new();
 
-        protected DndAgent(string apiKey)
+        protected DndAgent(string baseUrl, string modelName)
         {
-            Client = new AnthropicClient { ApiKey = apiKey };
+            // LM Studio exposes an OpenAI-compatible endpoint; the API key can
+            // be anything (LM Studio ignores it locally).
+            var options = new OpenAIClientOptions
+            {
+                Endpoint = new Uri(baseUrl)
+            };
+            var openAiClient = new OpenAIClient(new ApiKeyCredential("lm-studio"), options);
+            _client = openAiClient.GetChatClient(modelName);
         }
 
+        // ── Subclass contract ─────────────────────────────────────────────────
         protected abstract string AgentName { get; }
         protected abstract string SystemPrompt { get; }
-        protected virtual List<ToolUnion> Tools => new();
 
         /// <summary>
-        /// Send a message to this agent and get its response, executing any tool
-        /// calls automatically until the agent reaches end_turn.
+        /// Override to supply tool definitions for this agent.
+        /// Uses <see cref="MakeTool"/> to build <see cref="ChatTool"/> objects.
+        /// </summary>
+        protected virtual List<ChatTool> Tools => new();
+
+        // ── Public API ────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Send a user message, run the tool-call loop, and return the final
+        /// assistant text.  Conversation history is kept across calls.
         /// </summary>
         public async Task<string> ChatAsync(string userMessage)
         {
-            History.Add(new MessageParam
-            {
-                Role = Role.User,
-                Content = userMessage
-            });
+            History.Add(new UserChatMessage(userMessage));
 
             while (true)
             {
-                var parameters = new MessageCreateParams
+                // Build the full message list: system + history
+                var messages = new List<ChatMessage>
                 {
-                    Model = Model,
-                    MaxTokens = MaxTokens,
-                    System = SystemPrompt,
-                    Thinking = new ThinkingConfigAdaptive(),
-                    Messages = History,
-                    Tools = Tools.Count > 0 ? Tools : new List<ToolUnion>()
+                    new SystemChatMessage(SystemPrompt)
+                };
+                messages.AddRange(History);
+
+                // Build completion options
+                var completionOptions = new ChatCompletionOptions
+                {
+                    MaxOutputTokenCount = 4096,
                 };
 
-                var response = await Client.Messages.Create(parameters);
-
-                // Collect assistant content to add to history
-                var assistantContent = new List<ContentBlockParam>();
-                var toolResults = new List<ContentBlockParam>();
-                string finalText = "";
-
-                foreach (var block in response.Content)
+                // Attach tools if any are defined
+                if (Tools.Count > 0)
                 {
-                    if (block.TryPickText(out TextBlock? text))
-                    {
-                        finalText += text.Text;
-                        assistantContent.Add(new TextBlockParam { Text = text.Text });
-                    }
-                    else if (block.TryPickThinking(out ThinkingBlock? thinking))
-                    {
-                        assistantContent.Add(new ThinkingBlockParam
-                        {
-                            Thinking = thinking.Thinking,
-                            Signature = thinking.Signature
-                        });
-                    }
-                    else if (block.TryPickRedactedThinking(out RedactedThinkingBlock? redacted))
-                    {
-                        assistantContent.Add(new RedactedThinkingBlockParam { Data = redacted.Data });
-                    }
-                    else if (block.TryPickToolUse(out ToolUseBlock? toolUse))
-                    {
-                        assistantContent.Add(new ToolUseBlockParam
-                        {
-                            ID = toolUse.ID,
-                            Name = toolUse.Name,
-                            Input = toolUse.Input
-                        });
+                    foreach (var tool in Tools)
+                        completionOptions.Tools.Add(tool);
 
-                        var result = await HandleToolCallAsync(toolUse.Name, toolUse.Input);
-                        toolResults.Add(new ToolResultBlockParam
-                        {
-                            ToolUseID = toolUse.ID,
-                            Content = result
-                        });
-                    }
+                    completionOptions.ToolChoice = ChatToolChoice.CreateAutoChoice();
                 }
 
-                History.Add(new MessageParam
-                {
-                    Role = Role.Assistant,
-                    Content = assistantContent
-                });
+                ChatCompletion completion = await _client.CompleteChatAsync(messages, completionOptions);
 
-                if (toolResults.Count > 0)
+                // ── Handle tool calls ──────────────────────────────────────
+                if (completion.FinishReason == ChatFinishReason.ToolCalls)
                 {
-                    // Feed results back and loop
-                    History.Add(new MessageParam
+                    // Add assistant's tool-call message to history
+                    var assistantMsg = new AssistantChatMessage(completion);
+                    History.Add(assistantMsg);
+
+                    // Execute each tool call and collect results
+                    var toolResults = new List<ToolChatMessage>();
+                    foreach (var toolCall in completion.ToolCalls)
                     {
-                        Role = Role.User,
-                        Content = toolResults
-                    });
-                    continue;
+                        var inputArgs = ParseToolArguments(toolCall.FunctionArguments);
+                        var result    = await HandleToolCallAsync(toolCall.FunctionName, inputArgs);
+
+                        toolResults.Add(new ToolChatMessage(toolCall.Id, result));
+                    }
+
+                    // Feed tool results back to the model
+                    History.AddRange(toolResults);
+                    continue; // loop — let the model continue
                 }
 
-                return finalText;
+                // ── Plain text response ────────────────────────────────────
+                var responseText = ExtractText(completion);
+                History.Add(new AssistantChatMessage(responseText));
+                return responseText;
             }
         }
 
-        /// <summary>
-        /// Override in subclasses to handle tool calls by name.
-        /// Return the tool result as a string (JSON recommended).
-        /// </summary>
+        /// <summary>Override to handle tool calls by name. Return result as a string (JSON recommended).</summary>
         protected virtual Task<string> HandleToolCallAsync(
             string toolName,
             IReadOnlyDictionary<string, JsonElement> input)
-        {
-            return Task.FromResult($"{{\"error\": \"Unknown tool: {toolName}\"}}");
-        }
+            => Task.FromResult($"{{\"error\": \"Unknown tool: {toolName}\"}}");
 
         /// <summary>Reset conversation history (e.g. when starting a new session).</summary>
         public void ClearHistory() => History.Clear();
 
-        // ─── Shared helpers ───────────────────────────────────────────────────
+        // ── Helpers ───────────────────────────────────────────────────────────
 
-        protected static Tool MakeTool(string name, string description,
+        private static IReadOnlyDictionary<string, JsonElement> ParseToolArguments(BinaryData arguments)
+        {
+            if (arguments is null || arguments.ToMemory().IsEmpty)
+                return new Dictionary<string, JsonElement>();
+
+            try
+            {
+                var doc = JsonDocument.Parse(arguments);
+                var result = new Dictionary<string, JsonElement>(StringComparer.OrdinalIgnoreCase);
+                foreach (var prop in doc.RootElement.EnumerateObject())
+                    result[prop.Name] = prop.Value.Clone();
+                return result;
+            }
+            catch
+            {
+                return new Dictionary<string, JsonElement>();
+            }
+        }
+
+        private static string ExtractText(ChatCompletion completion)
+        {
+            var sb = new StringBuilder();
+            foreach (var part in completion.Content)
+                sb.Append(part.Text);
+            return sb.ToString().Trim();
+        }
+
+        // ── Tool-definition helpers ───────────────────────────────────────────
+
+        /// <summary>
+        /// Build a <see cref="ChatTool"/> with an inline JSON Schema for its parameters.
+        /// </summary>
+        protected static ChatTool MakeTool(
+            string name,
+            string description,
             Dictionary<string, object> properties,
             List<string>? required = null)
         {
             var schema = new Dictionary<string, object>
             {
-                ["type"] = "object",
+                ["type"]       = "object",
                 ["properties"] = properties
             };
             if (required is { Count: > 0 })
                 schema["required"] = required;
 
-            return new Tool
-            {
-                Name = name,
-                Description = description,
-                InputSchema = new InputSchema
-                {
-                    Properties = SerializeProperties(properties),
-                    Required = required ?? new List<string>()
-                }
-            };
-        }
-
-        private static Dictionary<string, JsonElement> SerializeProperties(
-            Dictionary<string, object> props)
-        {
-            var result = new Dictionary<string, JsonElement>();
-            foreach (var (key, value) in props)
-            {
-                var json = JsonSerializer.Serialize(value);
-                result[key] = JsonDocument.Parse(json).RootElement.Clone();
-            }
-            return result;
+            var schemaJson = JsonSerializer.Serialize(schema);
+            return ChatTool.CreateFunctionTool(
+                name,
+                description,
+                BinaryData.FromString(schemaJson));
         }
 
         protected static object StringProp(string description) =>

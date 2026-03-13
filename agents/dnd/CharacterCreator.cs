@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Anthropic.Models.Messages;
+using OpenAI.Chat;
 
 namespace Harness.Agents.Dnd
 {
@@ -15,7 +15,7 @@ namespace Harness.Agents.Dnd
     {
         private readonly Random _rng = new();
 
-        public CharacterCreator(string apiKey) : base(apiKey) { }
+        public CharacterCreator(string baseUrl, string modelName) : base(baseUrl, modelName) { }
 
         protected override string AgentName => "CharacterCreator";
 
@@ -39,7 +39,7 @@ namespace Harness.Agents.Dnd
             Return the final Character data inside <character_json> tags so the orchestrator can parse it.
             """;
 
-        protected override List<ToolUnion> Tools => new()
+        protected override List<ChatTool> Tools => new()
         {
             MakeTool(
                 "roll_ability_scores",

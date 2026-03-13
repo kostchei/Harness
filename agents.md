@@ -6,9 +6,13 @@ Documentation and prompts for AI agents collaborating on this Godot harness proj
 
 ## D&D Campaign Agents (`agents/dnd/`)
 
-A suite of five specialist Claude-powered agents that together run a full
-text-based D&D 5e campaign — character creation, exploration, encounters,
-combat, loot, and levelling up.
+A suite of five specialist agents powered by **LM Studio** (OpenAI-compatible
+local API) that together run a full text-based D&D 5e campaign — character
+creation, exploration, encounters, combat, loot, and levelling up.
+
+> **Backend**: LM Studio at `http://localhost:1234/v1`
+> **Model**: `glm-4.7-flash-uncensored-heretic-neo-code-imatrix-max`
+> No API key required — any string is accepted by the local server.
 
 ### Architecture
 
@@ -47,8 +51,9 @@ CharacterCreation → Exploration → Encounter → Combat → LootAndRest → E
 ### Quick start
 
 ```csharp
-var orchestrator = new CampaignOrchestrator(
-    Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY")!);
+// Defaults target LM Studio on localhost:1234 with the glm-4.7 model.
+// Pass custom baseUrl / modelName to override.
+var orchestrator = new CampaignOrchestrator();
 
 // Start a new campaign — returns opening narration + char creation prompt
 string opening = await orchestrator.StartNewCampaignAsync("Shadows of the Forgotten Keep");
@@ -65,15 +70,19 @@ while (true)
 }
 ```
 
-### Environment variable required
+### LM Studio setup
 
+1. Open LM Studio → load `glm-4.7-flash-uncensored-heretic-neo-code-imatrix-max`.
+2. Start the **Local Server** on port `1234` (default).
+3. No API key needed — any value is accepted.
+
+To use a different model or port, pass the overrides explicitly:
+
+```csharp
+var orchestrator = new CampaignOrchestrator(
+    baseUrl:   "http://localhost:1234/v1",
+    modelName: "your-model-identifier-here");
 ```
-ANTHROPIC_API_KEY=sk-ant-...
-```
-
-### Model used
-
-`claude-opus-4-6` with adaptive thinking — best reasoning for complex RPG decisions.
 
 ---
 

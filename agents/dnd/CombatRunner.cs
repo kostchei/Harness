@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Anthropic.Models.Messages;
+using OpenAI.Chat;
 
 namespace Harness.Agents.Dnd
 {
@@ -15,8 +15,9 @@ namespace Harness.Agents.Dnd
     public class CombatRunner : DndAgent
     {
         private readonly Random _rng = new();
+        private Character? _player;
 
-        public CombatRunner(string apiKey) : base(apiKey) { }
+        public CombatRunner(string baseUrl, string modelName) : base(baseUrl, modelName) { }
 
         protected override string AgentName => "CombatRunner";
 
@@ -41,7 +42,7 @@ namespace Harness.Agents.Dnd
             Always return the updated CombatState as JSON inside <combat_json> tags.
             """;
 
-        protected override List<ToolUnion> Tools => new()
+        protected override List<ChatTool> Tools => new()
         {
             MakeTool(
                 "roll_initiative",
@@ -102,6 +103,7 @@ namespace Harness.Agents.Dnd
 
         public void StartCombat(Character player, Encounter encounter)
         {
+            _player = player;
             State = new CombatState
             {
                 IsInCombat      = true,
@@ -166,7 +168,7 @@ namespace Harness.Agents.Dnd
                     // Find matching monster for its dex mod
                     var monster = State.CurrentEncounter?.Monsters
                         .FirstOrDefault(m => m.Name == c.Name);
-                    int monDexMod = monster != null ? (monster.Abilities.Dexterity - 10) / 2 : 0;
+                    int monDexMod = monster?.Abilities.DexMod ?? 0;
                     c.Initiative = _rng.Next(1, 21) + monDexMod;
                 }
             }
@@ -306,6 +308,9 @@ namespace Harness.Agents.Dnd
 
         private int GetCombatantAC(string name)
         {
+            if (_player != null && _player.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                return _player.ArmorClass;
+
             if (State.CurrentEncounter == null) return 10;
             var monster = State.CurrentEncounter.Monsters
                 .FirstOrDefault(m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
@@ -314,18 +319,32 @@ namespace Harness.Agents.Dnd
 
         private int RollDice(string expression)
         {
-            // Parse "NdM" or "NdM+B"
+            // Parse "NdM" or "NdM+B" or "NdM-B"
             expression = expression.Trim().ToLower();
             var parts = expression.Split('d');
             if (parts.Length != 2) return 0;
 
             int count = int.TryParse(parts[0], out var c) ? c : 1;
-            int sides = int.TryParse(parts[1], out var s) ? s : 6;
+
+            int bonus = 0;
+            string sidesPart = parts[1];
+            int plusIdx = sidesPart.IndexOf('+');
+            int minusIdx = sidesPart.IndexOf('-');
+            int splitIdx = plusIdx >= 0 ? plusIdx : minusIdx;
+
+            if (splitIdx >= 0)
+            {
+                int.TryParse(sidesPart[(splitIdx + 1)..], out bonus);
+                if (minusIdx >= 0 && plusIdx < 0) bonus = -bonus;
+                sidesPart = sidesPart[..splitIdx];
+            }
+
+            int sides = int.TryParse(sidesPart, out var s) ? s : 6;
 
             int total = 0;
             for (int i = 0; i < count; i++)
                 total += _rng.Next(1, sides + 1);
-            return total;
+            return total + bonus;
         }
 
         private void Log(string message)

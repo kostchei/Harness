@@ -31,13 +31,17 @@ namespace Harness.Agents.Dnd
         private static readonly JsonSerializerOptions JsonOpts =
             new() { WriteIndented = true };
 
-        public CampaignOrchestrator(string apiKey)
+        /// <param name="baseUrl">LM Studio HTTP base URL, e.g. "http://localhost:1234/v1".</param>
+        /// <param name="modelName">Exact model identifier as shown in LM Studio, e.g. "glm-4.7-flash-uncensored-heretic-neo-code-imatrix-max".</param>
+        public CampaignOrchestrator(
+            string baseUrl  = "http://localhost:1234/v1",
+            string modelName = "glm-4.7-flash-uncensored-heretic-neo-code-imatrix-max")
         {
-            _characterCreator  = new CharacterCreator(apiKey);
-            _campaignOrganiser = new CampaignOrganiser(apiKey);
-            _encounterBuilder  = new EncounterBuilder(apiKey);
-            _combatRunner      = new CombatRunner(apiKey);
-            _narrativeVoice    = new NarrativeVoice(apiKey);
+            _characterCreator  = new CharacterCreator(baseUrl, modelName);
+            _campaignOrganiser = new CampaignOrganiser(baseUrl, modelName);
+            _encounterBuilder  = new EncounterBuilder(baseUrl, modelName);
+            _combatRunner      = new CombatRunner(baseUrl, modelName);
+            _narrativeVoice    = new NarrativeVoice(baseUrl, modelName);
         }
 
         // ─── Public API ───────────────────────────────────────────────────────
