@@ -25,6 +25,9 @@ __pycache__/
 .vscode/
 .idea/
 
+# Claude Code
+.claude/
+
 # OS generated files
 .DS_Store
 Thumbs.db
