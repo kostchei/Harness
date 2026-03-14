@@ -42,11 +42,8 @@ namespace Harness.Agents.Dnd
 
             Always return the updated CombatState as JSON inside <combat_json> tags.
 
-            ## SRD Reference — Combat Rules
-            """ + SrdRules.Combat + """
-
-            ## SRD Reference — Equipment
-            """ + SrdRules.Equipment;
+            Use lookup_srd to check official combat rules and equipment data (topics: combat, equipment) when needed.
+            """;
 
         protected override List<ChatTool> Tools => new()
         {

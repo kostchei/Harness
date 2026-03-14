@@ -1,0 +1,58 @@
+{
+  "_note": "2024 SRD species. No ability bonuses (those come from backgrounds). Traits, speed, size only.",
+  "Human": {
+    "speed": 30, "size": "Medium", "darkvision": 0,
+    "traits": ["Resourceful (gain Heroic Inspiration on Long Rest)", "Skillful (1 extra skill proficiency)", "Versatile (gain 1 Origin feat)"],
+    "languages": ["Common", "one of your choice"]
+  },
+  "Elf": {
+    "speed": 30, "size": "Medium", "darkvision": 60,
+    "traits": ["Darkvision 60ft", "Fey Ancestry (advantage vs charmed, immune to magic sleep)", "Keen Senses (proficiency in Perception)", "Trance (4hr long rest)"],
+    "languages": ["Common", "Elvish"]
+  },
+  "Dwarf": {
+    "speed": 30, "size": "Medium", "darkvision": 120,
+    "traits": ["Darkvision 120ft", "Dwarven Resilience (resistance to poison damage, advantage on saves vs poisoned)", "Dwarven Toughness (+1 HP per level)", "Stonecunning (tremorsense 60ft for 10min, PB uses/long rest)"],
+    "languages": ["Common", "Dwarvish"]
+  },
+  "Halfling": {
+    "speed": 30, "size": "Small", "darkvision": 0,
+    "traits": ["Brave (advantage vs frightened)", "Halfling Nimbleness (move through space of Medium+ creature)", "Luck (reroll nat 1 on d20 Test, must use new roll)", "Naturally Stealthy (can Hide behind Medium+ creature)"],
+    "languages": ["Common", "Halfling"]
+  },
+  "Gnome": {
+    "speed": 30, "size": "Small", "darkvision": 60,
+    "traits": ["Darkvision 60ft", "Gnomish Cunning (advantage on INT/WIS/CHA saves)", "Gnomish Lineage (choose Forest: speak with Small animals; or Rock: prestidigitation cantrip + mending cantrip)"],
+    "languages": ["Common", "Gnomish"]
+  },
+  "Orc": {
+    "speed": 30, "size": "Medium", "darkvision": 120,
+    "traits": ["Darkvision 120ft", "Adrenaline Rush (Dash as bonus action, gain temp HP = PB, PB uses/long rest)", "Relentless Endurance (drop to 1 HP instead of 0, 1/long rest)"],
+    "languages": ["Common", "Orc"]
+  },
+  "Tiefling": {
+    "speed": 30, "size": "Medium or Small", "darkvision": 60,
+    "traits": ["Darkvision 60ft", "Fiendish Legacy (choose Abyssal: poison resist + ray of sickness; Chthonic: necrotic resist + false life; Infernal: fire resist + hellish rebuke)", "Otherworldly Presence (thaumaturgy cantrip)"],
+    "languages": ["Common", "one of your choice"]
+  },
+  "Dragonborn": {
+    "speed": 30, "size": "Medium", "darkvision": 0,
+    "traits": ["Draconic Ancestry (choose type: determines damage type for breath weapon and resistance)", "Breath Weapon (1d10 at 1st, scales; 15ft cone or 30ft line; DEX/CON save DC 8+CON+PB; PB uses/long rest)", "Damage Resistance (from ancestry type)"],
+    "draconic_types": {
+      "Black": "acid", "Blue": "lightning", "Brass": "fire", "Bronze": "lightning",
+      "Copper": "acid", "Gold": "fire", "Green": "poison", "Red": "fire",
+      "Silver": "cold", "White": "cold"
+    },
+    "languages": ["Common", "Draconic"]
+  },
+  "Goliath": {
+    "speed": 35, "size": "Medium", "darkvision": 0,
+    "traits": ["Large Form (advantage on STR checks, count as Large for carry/push/lift)", "Giant Ancestry (choose Cloud: misty step PB/long rest; Fire: fire resist + searing smite PB/long rest; Hill: temp HP on hit PB/long rest; Stone: stoneskin 10min 1/long rest; Storm: lightning resist + thunderwave PB/long rest)", "Powerful Build (count as Large for carrying capacity)"],
+    "languages": ["Common", "Giant"]
+  },
+  "Aasimar": {
+    "speed": 30, "size": "Medium or Small", "darkvision": 60,
+    "traits": ["Darkvision 60ft", "Celestial Resistance (resist necrotic and radiant damage)", "Healing Hands (restore PB HP to touched creature, 1/long rest)", "Light Bearer (light cantrip)", "Celestial Revelation (at 3rd: choose Heavenly Wings/Inner Radiance/Necrotic Shroud, 1/long rest, 1min duration)"],
+    "languages": ["Common", "one of your choice"]
+  }
+}

@@ -40,11 +40,8 @@ namespace Harness.Agents.Dnd
 
             Return the finished Encounter as JSON inside <encounter_json> tags.
 
-            ## SRD Reference — Monsters
-            """ + SrdRules.Monsters + """
-
-            ## SRD Reference — Progression & Difficulty
-            """ + SrdRules.Progression;
+            Use lookup_srd to check monster stats and difficulty budgets (topics: monsters, progression) when building encounters.
+            """;
 
         protected override List<ChatTool> Tools => new()
         {

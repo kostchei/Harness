@@ -9,8 +9,9 @@ namespace Harness.Agents.Dnd
     public class Character
     {
         public string Name { get; set; } = "";
-        public string Race { get; set; } = "";
+        public string Race { get; set; } = "";  // 2024: species
         public string Class { get; set; } = "";
+        public string Background { get; set; } = "";
         public int Level { get; set; } = 1;
         public int ExperiencePoints { get; set; } = 0;
         public AbilityScores Abilities { get; set; } = new();

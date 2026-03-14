@@ -27,6 +27,17 @@ namespace Harness.Agents.Dnd
         // ── Shared conversation history ───────────────────────────────────────
         protected readonly List<ChatMessage> History = new();
 
+        // ── Shared SRD lookup tool ──────────────────────────────────────────
+        private static readonly ChatTool SrdLookupTool = MakeTool(
+            "lookup_srd",
+            "Look up SRD 5e rules by topic. Returns the official reference data.",
+            new Dictionary<string, object>
+            {
+                ["topic"] = StringProp(
+                    "One of: species, backgrounds, classes, combat, monsters, progression, equipment, spells")
+            },
+            new List<string> { "topic" });
+
         protected DndAgent(string baseUrl, string modelName)
         {
             // LM Studio exposes an OpenAI-compatible endpoint; the API key can
@@ -46,6 +57,7 @@ namespace Harness.Agents.Dnd
         /// <summary>
         /// Override to supply tool definitions for this agent.
         /// Uses <see cref="MakeTool"/> to build <see cref="ChatTool"/> objects.
+        /// The base list includes the shared lookup_srd tool automatically.
         /// </summary>
         protected virtual List<ChatTool> Tools => new();
 
@@ -71,19 +83,31 @@ namespace Harness.Agents.Dnd
                 // Build completion options
                 var completionOptions = new ChatCompletionOptions
                 {
-                    MaxOutputTokenCount = 4096,
+                    MaxOutputTokenCount = 2048,
                 };
 
-                // Attach tools if any are defined
-                if (Tools.Count > 0)
+                // Attach agent-specific tools + the shared SRD lookup tool
+                var allTools = Tools;
+                if (allTools.Count > 0)
                 {
-                    foreach (var tool in Tools)
+                    foreach (var tool in allTools)
                         completionOptions.Tools.Add(tool);
-
+                    completionOptions.Tools.Add(SrdLookupTool);
                     completionOptions.ToolChoice = ChatToolChoice.CreateAutoChoice();
                 }
 
-                ChatCompletion completion = await _client.CompleteChatAsync(messages, completionOptions);
+                ChatCompletion completion;
+                try
+                {
+                    completion = await _client.CompleteChatAsync(messages, completionOptions);
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine($"[{AgentName}] LLM call failed: {ex.GetType().Name}: {ex.Message}");
+                    if (ex.InnerException != null)
+                        Console.Error.WriteLine($"  Inner: {ex.InnerException.Message}");
+                    throw;
+                }
 
                 // ── Handle tool calls ──────────────────────────────────────
                 if (completion.FinishReason == ChatFinishReason.ToolCalls)
@@ -118,7 +142,29 @@ namespace Harness.Agents.Dnd
         protected virtual Task<string> HandleToolCallAsync(
             string toolName,
             IReadOnlyDictionary<string, JsonElement> input)
-            => Task.FromResult($"{{\"error\": \"Unknown tool: {toolName}\"}}");
+        {
+            if (toolName == "lookup_srd")
+                return Task.FromResult(HandleSrdLookup(input));
+            return Task.FromResult($"{{\"error\": \"Unknown tool: {toolName}\"}}");
+        }
+
+        private static string HandleSrdLookup(IReadOnlyDictionary<string, JsonElement> input)
+        {
+            var topic = input.TryGetValue("topic", out var t) ? t.GetString() ?? "" : "";
+            return topic.ToLower() switch
+            {
+                "species"     => SrdRules.Species,
+                "backgrounds" => SrdRules.Backgrounds,
+                "classes"     => SrdRules.Classes,
+                "races"       => SrdRules.Races,
+                "combat"      => SrdRules.Combat,
+                "monsters"    => SrdRules.Monsters,
+                "progression" => SrdRules.Progression,
+                "equipment"   => SrdRules.Equipment,
+                "spells"      => SrdRules.Spells,
+                _ => $"{{\"error\": \"Unknown SRD topic: {topic}. Use one of: species, backgrounds, classes, combat, monsters, progression, equipment, spells\"}}"
+            };
+        }
 
         /// <summary>Reset conversation history (e.g. when starting a new session).</summary>
         public void ClearHistory() => History.Clear();

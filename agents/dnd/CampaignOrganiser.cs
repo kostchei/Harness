@@ -31,11 +31,8 @@ namespace Harness.Agents.Dnd
             <campaign_json> and <character_json> tags respectively so the
             orchestrator can parse them.
 
-            ## SRD Reference — Progression & XP
-            """ + SrdRules.Progression + """
-
-            ## SRD Reference — Spells
-            """ + SrdRules.Spells;
+            Use lookup_srd to check XP thresholds, level progression, and spell data (topics: progression, spells) when needed.
+            """;
 
         protected override List<ChatTool> Tools => new()
         {

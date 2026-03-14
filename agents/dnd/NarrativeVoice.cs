@@ -26,118 +26,14 @@ namespace Harness.Agents.Dnd
             - Second-person present tense: "You step into the torchlit chamber…"
             - Appropriately paced: shorter punchy sentences in combat, longer prose during exploration.
 
-            You have access to these narration tools:
-            - narrate_location: describe a new location the player enters.
-            - narrate_combat_start: open a combat encounter dramatically.
-            - narrate_combat_hit / narrate_combat_miss: single-line combat flavour.
-            - narrate_loot: describe discovering treasure.
-            - narrate_level_up: celebrate leveling up.
-            - narrate_death_save: describe a near-death moment.
-            - narrate_quest: introduce or resolve a quest dramatically.
-
-            Always use exactly one narration tool per response, then provide
-            your prose output as plain text (no JSON tags needed — NarrativeVoice
-            output is always pure prose for the player to read).
+            You receive context about what to narrate (location, combat, loot, etc.) in the user message.
+            Respond with pure prose for the player to read. No JSON, no tags.
+            Keep responses to 2-4 sentences unless the moment demands more.
             """;
 
-        protected override List<ChatTool> Tools => new()
-        {
-            MakeTool("narrate_location",
-                "Generate an atmospheric description of a location.",
-                new Dictionary<string, object>
-                {
-                    ["location_name"] = StringProp("Name of the location"),
-                    ["location_type"] = StringProp("dungeon_room | tavern | forest | city | cave | temple | ruins | overworld"),
-                    ["atmosphere"]    = StringProp("foreboding | cheerful | mysterious | tense | wondrous | eerie"),
-                    ["details"]       = StringProp("Key visual or sensory details to include")
-                },
-                new() { "location_name", "location_type", "atmosphere" }),
-
-            MakeTool("narrate_combat_start",
-                "Open a combat encounter with dramatic flair.",
-                new Dictionary<string, object>
-                {
-                    ["encounter_name"] = StringProp("Encounter or enemy name"),
-                    ["enemy_count"]    = IntProp("Number of enemies"),
-                    ["setting"]        = StringProp("Where the fight takes place")
-                },
-                new() { "encounter_name", "enemy_count", "setting" }),
-
-            MakeTool("narrate_combat_hit",
-                "Describe a successful hit in combat.",
-                new Dictionary<string, object>
-                {
-                    ["attacker"]    = StringProp("Who is attacking"),
-                    ["target"]      = StringProp("Who is being hit"),
-                    ["damage"]      = IntProp("Damage dealt"),
-                    ["damage_type"] = StringProp("Type of damage"),
-                    ["is_crit"]     = BoolProp("Whether this was a critical hit")
-                },
-                new() { "attacker", "target", "damage", "damage_type" }),
-
-            MakeTool("narrate_combat_miss",
-                "Describe a missed attack.",
-                new Dictionary<string, object>
-                {
-                    ["attacker"] = StringProp("Who attacked"),
-                    ["target"]   = StringProp("Who was missed")
-                },
-                new() { "attacker", "target" }),
-
-            MakeTool("narrate_loot",
-                "Describe discovering treasure or valuable items.",
-                new Dictionary<string, object>
-                {
-                    ["items"]    = ArrayProp("Names of items found", "string"),
-                    ["gold"]     = IntProp("Gold pieces found"),
-                    ["location"] = StringProp("Where the loot was found")
-                },
-                new() { "items", "gold" }),
-
-            MakeTool("narrate_level_up",
-                "Celebrate the character reaching a new level.",
-                new Dictionary<string, object>
-                {
-                    ["character_name"] = StringProp("Character's name"),
-                    ["new_level"]      = IntProp("The new level reached"),
-                    ["class_name"]     = StringProp("Character's class")
-                },
-                new() { "character_name", "new_level", "class_name" }),
-
-            MakeTool("narrate_death_save",
-                "Narrate a near-death or death saving throw moment.",
-                new Dictionary<string, object>
-                {
-                    ["character_name"] = StringProp("Character's name"),
-                    ["survived"]       = BoolProp("Whether the character survived")
-                },
-                new() { "character_name", "survived" }),
-
-            MakeTool("narrate_quest",
-                "Dramatically introduce or resolve a quest.",
-                new Dictionary<string, object>
-                {
-                    ["quest_name"]  = StringProp("Quest name"),
-                    ["is_complete"] = BoolProp("True if completing, false if starting"),
-                    ["details"]     = StringProp("Key story details to weave in")
-                },
-                new() { "quest_name", "is_complete", "details" })
-        };
-
-        // NarrativeVoice tools are purely for Claude to structure its thinking —
-        // we don't need to store state from them; just return acknowledgements.
-        protected override Task<string> HandleToolCallAsync(
-            string toolName,
-            IReadOnlyDictionary<string, JsonElement> input)
-        {
-            // Echo back a simple ack so Claude continues to produce the prose.
-            return Task.FromResult(JsonSerializer.Serialize(new
-            {
-                tool    = toolName,
-                status  = "acknowledged",
-                context = JsonSerializer.Serialize(input)
-            }));
-        }
+        // NarrativeVoice has no tools — it produces pure prose from the user prompt.
+        // Context (location, combat details, etc.) is passed in the user message
+        // by the orchestrator's convenience methods below.
 
         // ─── Convenience helpers for the orchestrator ─────────────────────────
 

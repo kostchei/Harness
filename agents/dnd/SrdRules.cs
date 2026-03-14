@@ -14,13 +14,15 @@ namespace Harness.Agents.Dnd
 
         private static string RulesDir => _rulesDir ??= FindRulesDir();
 
-        public static string Classes    => LoadRule("classes.json");
-        public static string Races      => LoadRule("races.json");
-        public static string Combat     => LoadRule("combat.json");
-        public static string Monsters   => LoadRule("monsters.json");
+        public static string Classes     => LoadRule("classes.json");
+        public static string Races       => LoadRule("races.json");
+        public static string Species     => LoadRule("species.json");
+        public static string Backgrounds => LoadRule("backgrounds.json");
+        public static string Combat      => LoadRule("combat.json");
+        public static string Monsters    => LoadRule("monsters.json");
         public static string Progression => LoadRule("progression.json");
-        public static string Equipment  => LoadRule("equipment.json");
-        public static string Spells     => LoadRule("spells.json");
+        public static string Equipment   => LoadRule("equipment.json");
+        public static string Spells      => LoadRule("spells.json");
 
         private static string LoadRule(string fileName)
         {

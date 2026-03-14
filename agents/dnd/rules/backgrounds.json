@@ -1,0 +1,93 @@
+{
+  "_note": "2024 SRD backgrounds. Each grants: +2 to one ability and +1 to another (player's choice, different abilities), 2 skill proficiencies, 1 tool proficiency, 1 Origin feat, and starting equipment.",
+  "Acolyte": {
+    "skills": ["Insight", "Religion"],
+    "tool": "Calligrapher's Supplies",
+    "feat": "Magic Initiate (Cleric)",
+    "equipment": ["Holy Symbol", "Prayer Book", "Parchment (10)", "Robe", "Calligrapher's Supplies", "5gp"]
+  },
+  "Charlatan": {
+    "skills": ["Deception", "Sleight of Hand"],
+    "tool": "Forgery Kit",
+    "feat": "Skilled",
+    "equipment": ["Fine Clothes", "Forgery Kit", "Disguise Kit", "15gp"]
+  },
+  "Criminal": {
+    "skills": ["Sleight of Hand", "Stealth"],
+    "tool": "Thieves' Tools",
+    "feat": "Alert",
+    "equipment": ["Crowbar", "Dark Common Clothes with Hood", "Thieves' Tools", "15gp"]
+  },
+  "Entertainer": {
+    "skills": ["Acrobatics", "Performance"],
+    "tool": "Musical Instrument (one of your choice)",
+    "feat": "Musician",
+    "equipment": ["Musical Instrument (1)", "Costume (2)", "Mirror", "15gp"]
+  },
+  "Farmer": {
+    "skills": ["Animal Handling", "Nature"],
+    "tool": "Carpenter's Tools",
+    "feat": "Tough",
+    "equipment": ["Sickle", "Carpenter's Tools", "Healer's Kit", "Iron Pot", "Shovel", "Common Clothes", "5gp"]
+  },
+  "Guard": {
+    "skills": ["Athletics", "Perception"],
+    "tool": "Gaming Set (one of your choice)",
+    "feat": "Alert",
+    "equipment": ["Spear", "Light Crossbow", "Bolts (20)", "Manacles", "Uniform Cloak", "Lantern (hooded)", "Oil (2)", "5gp"]
+  },
+  "Guide": {
+    "skills": ["Stealth", "Survival"],
+    "tool": "Cartographer's Tools",
+    "feat": "Magic Initiate (Druid)",
+    "equipment": ["Bedroll", "Mess Kit", "Cartographer's Tools", "Tent (2-person)", "Traveler's Clothes", "2gp"]
+  },
+  "Hermit": {
+    "skills": ["Medicine", "Religion"],
+    "tool": "Herbalism Kit",
+    "feat": "Healer",
+    "equipment": ["Herbalism Kit", "Quarterstaff", "Scroll Case with notes", "Winter Blanket", "Common Clothes", "5gp"]
+  },
+  "Merchant": {
+    "skills": ["Animal Handling", "Persuasion"],
+    "tool": "Navigator's Tools",
+    "feat": "Lucky",
+    "equipment": ["Navigator's Tools", "Abacus", "Fine Clothes", "Letter of Introduction", "25gp"]
+  },
+  "Noble": {
+    "skills": ["History", "Persuasion"],
+    "tool": "Gaming Set (one of your choice)",
+    "feat": "Skilled",
+    "equipment": ["Fine Clothes", "Signet Ring", "Scroll of Pedigree", "Perfume", "25gp"]
+  },
+  "Sage": {
+    "skills": ["Arcana", "History"],
+    "tool": "Calligrapher's Supplies",
+    "feat": "Magic Initiate (Wizard)",
+    "equipment": ["Quarterstaff", "Calligrapher's Supplies", "Book (blank)", "Parchment (10)", "Robe", "8gp"]
+  },
+  "Sailor": {
+    "skills": ["Acrobatics", "Perception"],
+    "tool": "Navigator's Tools",
+    "feat": "Tavern Brawler",
+    "equipment": ["Dagger", "Navigator's Tools", "Silk Rope (50ft)", "Common Clothes", "10gp"]
+  },
+  "Scribe": {
+    "skills": ["Investigation", "Perception"],
+    "tool": "Calligrapher's Supplies",
+    "feat": "Skilled",
+    "equipment": ["Calligrapher's Supplies", "Fine Clothes", "Lamp", "Oil (3)", "Parchment (12)", "5gp"]
+  },
+  "Soldier": {
+    "skills": ["Athletics", "Intimidation"],
+    "tool": "Gaming Set (one of your choice)",
+    "feat": "Savage Attacker",
+    "equipment": ["Spear", "Shortbow", "Arrows (20)", "Gaming Set (1)", "Uniform Cloak", "Common Clothes", "14gp"]
+  },
+  "Wayfarer": {
+    "skills": ["Insight", "Stealth"],
+    "tool": "Thieves' Tools",
+    "feat": "Lucky",
+    "equipment": ["Bedroll", "Mess Kit", "Thieves' Tools", "Traveler's Clothes", "Waterskin", "16gp"]
+  }
+}
