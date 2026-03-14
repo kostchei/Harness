@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D&D Campaign - Alpha Tester</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app dnd-app">
+    <header class="hero">
+      <h1>D&D Campaign Alpha Tester</h1>
+      <p>Powered by LM Studio + CampaignOrchestrator</p>
+    </header>
+
+    <aside class="panel dnd-sidebar">
+      <details open>
+        <summary>Settings</summary>
+        <label>
+          Server URL
+          <input id="serverUrl" type="url" value="http://localhost:5000" />
+        </label>
+        <button id="healthBtn">Check Server</button>
+        <p id="serverStatus" class="status">Not connected</p>
+      </details>
+
+      <details open>
+        <summary>Campaign</summary>
+        <div id="campaignInfo" class="dnd-info-block">No campaign active.</div>
+      </details>
+
+      <details open>
+        <summary>Character</summary>
+        <div id="characterSheet" class="dnd-info-block">No character yet.</div>
+      </details>
+    </aside>
+
+    <section class="panel dnd-chat-area">
+      <div class="dnd-phase-bar" id="phaseBar">
+        <span class="dnd-phase" data-phase="CharacterCreation">Character</span>
+        <span class="dnd-phase" data-phase="Exploration">Explore</span>
+        <span class="dnd-phase" data-phase="Encounter">Encounter</span>
+        <span class="dnd-phase" data-phase="Combat">Combat</span>
+        <span class="dnd-phase" data-phase="LootAndRest">Loot/Rest</span>
+      </div>
+
+      <div class="dnd-messages" id="messages">
+        <div class="dnd-msg dnd-msg--system">Start a campaign to begin your adventure.</div>
+      </div>
+
+      <div class="dnd-input-area">
+        <div class="dnd-start-row">
+          <label>
+            Campaign Name
+            <input id="campaignName" type="text" value="Shadows of the Forgotten Keep" />
+          </label>
+          <button id="startBtn">Start New Campaign</button>
+        </div>
+        <div class="dnd-input-row">
+          <textarea id="playerInput" rows="2" placeholder="What do you do?" disabled></textarea>
+          <button id="sendBtn" disabled>Send</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="./dnd.js"></script>
+</body>
+</html>

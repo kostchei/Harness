@@ -1,0 +1,39 @@
+{
+  "_note": "SRD 5e common spells levels 0-3. Compact format: school, cast, range, duration, effect.",
+  "cantrips": {
+    "fire bolt":     { "class": ["wizard"], "school": "evocation", "cast": "1 action", "range": "120ft", "effect": "Ranged spell attack, 1d10 fire (scales: 2d10 at 5, 3d10 at 11, 4d10 at 17)" },
+    "sacred flame":  { "class": ["cleric"], "school": "evocation", "cast": "1 action", "range": "60ft", "effect": "DEX save or 1d8 radiant (scales like fire bolt). No cover benefit." },
+    "eldritch blast": { "class": ["warlock"], "school": "evocation", "cast": "1 action", "range": "120ft", "effect": "Ranged spell attack, 1d10 force. Extra beams at 5/11/17." },
+    "mage hand":     { "class": ["wizard","bard"], "school": "conjuration", "cast": "1 action", "range": "30ft", "effect": "Spectral hand, manipulate objects up to 10lb, 1 min duration." },
+    "vicious mockery":{ "class": ["bard"], "school": "enchantment", "cast": "1 action", "range": "60ft", "effect": "WIS save or 1d4 psychic + disadvantage on next attack. Scales." },
+    "guidance":      { "class": ["cleric","druid"], "school": "divination", "cast": "1 action", "range": "touch", "effect": "Concentration 1 min, target adds 1d4 to one ability check." },
+    "thaumaturgy":   { "class": ["cleric"], "school": "transmutation", "cast": "1 action", "range": "30ft", "effect": "Minor sensory effects: boom voice, flicker flames, tremors, etc." },
+    "light":         { "class": ["cleric","wizard","bard"], "school": "evocation", "cast": "1 action", "range": "touch", "effect": "Object sheds 20ft bright + 20ft dim light, 1 hour." }
+  },
+  "level1": {
+    "magic missile": { "class": ["wizard"], "school": "evocation", "cast": "1 action", "range": "120ft", "effect": "3 darts, 1d4+1 force each, auto-hit. +1 dart per upcast level." },
+    "shield":        { "class": ["wizard"], "school": "abjuration", "cast": "1 reaction", "range": "self", "effect": "+5 AC until start of next turn, blocks magic missile." },
+    "sleep":         { "class": ["wizard","bard"], "school": "enchantment", "cast": "1 action", "range": "90ft", "effect": "5d8 HP of creatures fall unconscious (lowest HP first). 1 min." },
+    "cure wounds":   { "class": ["cleric","bard","paladin","ranger","druid"], "school": "evocation", "cast": "1 action", "range": "touch", "effect": "Heal 1d8+spellcasting mod. +1d8 per upcast level." },
+    "healing word":  { "class": ["cleric","bard","druid"], "school": "evocation", "cast": "1 bonus action", "range": "60ft", "effect": "Heal 1d4+spellcasting mod. +1d4 per upcast level." },
+    "bless":         { "class": ["cleric","paladin"], "school": "enchantment", "cast": "1 action", "range": "30ft", "effect": "Concentration 1 min, up to 3 creatures add 1d4 to attacks and saves." },
+    "thunderwave":   { "class": ["wizard","bard","druid"], "school": "evocation", "cast": "1 action", "range": "self (15ft cube)", "effect": "2d8 thunder, CON save half. Failed save pushed 10ft." },
+    "hunter's mark":  { "class": ["ranger"], "school": "divination", "cast": "1 bonus action", "range": "90ft", "effect": "Concentration 1hr, +1d6 damage to target on each hit, advantage on tracking." },
+    "guiding bolt":  { "class": ["cleric"], "school": "evocation", "cast": "1 action", "range": "120ft", "effect": "Ranged spell attack, 4d6 radiant. Next attack against target has advantage." },
+    "charm person":  { "class": ["bard","wizard","druid","warlock"], "school": "enchantment", "cast": "1 action", "range": "30ft", "effect": "WIS save (advantage if in combat). Charmed 1 hour." }
+  },
+  "level2": {
+    "spiritual weapon": { "class": ["cleric"], "school": "evocation", "cast": "1 bonus action", "range": "60ft", "effect": "Spectral weapon, 1d8+spellmod force as bonus action each turn. 1 min." },
+    "hold person":   { "class": ["cleric","bard","wizard","warlock","druid"], "school": "enchantment", "cast": "1 action", "range": "60ft", "effect": "WIS save or paralyzed, repeat save each turn end. Concentration 1 min." },
+    "misty step":    { "class": ["wizard","warlock"], "school": "conjuration", "cast": "1 bonus action", "range": "self", "effect": "Teleport up to 30ft to visible unoccupied space." },
+    "scorching ray":  { "class": ["wizard"], "school": "evocation", "cast": "1 action", "range": "120ft", "effect": "3 rays, ranged spell attack each, 2d6 fire per ray." },
+    "lesser restoration": { "class": ["cleric","paladin","druid","ranger","bard"], "school": "abjuration", "cast": "1 action", "range": "touch", "effect": "End one disease or condition: blinded, deafened, paralyzed, poisoned." }
+  },
+  "level3": {
+    "fireball":      { "class": ["wizard"], "school": "evocation", "cast": "1 action", "range": "150ft", "effect": "20ft radius, 8d6 fire, DEX save half. +1d6 per upcast level." },
+    "spirit guardians": { "class": ["cleric"], "school": "conjuration", "cast": "1 action", "range": "self (15ft radius)", "effect": "Concentration 10 min, hostile creatures entering/starting turn: WIS save or 3d8 radiant/necrotic, half on save. Half speed in area." },
+    "counterspell":  { "class": ["wizard","warlock"], "school": "abjuration", "cast": "1 reaction", "range": "60ft", "effect": "Auto-counter spell of 3rd level or lower. Higher: DC 10+spell level check." },
+    "revivify":      { "class": ["cleric","paladin"], "school": "necromancy", "cast": "1 action", "range": "touch", "effect": "Creature dead within 1 minute returns with 1 HP. 300gp diamond consumed." },
+    "dispel magic":  { "class": ["cleric","wizard","bard","paladin","druid","warlock"], "school": "abjuration", "cast": "1 action", "range": "120ft", "effect": "End one spell of 3rd level or lower. Higher: DC 10+spell level check." }
+  }
+}

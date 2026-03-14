@@ -1,0 +1,44 @@
+{
+  "_note": "SRD 5e combat rules in compact pseudocode form.",
+  "turnActions": ["Attack", "Cast Spell", "Dash", "Disengage", "Dodge", "Help", "Hide", "Ready", "Use Object"],
+  "bonusActions": ["Offhand attack (if dual-wielding, dmg die only, no modifier)", "Class features (e.g. Cunning Action, Second Wind)"],
+  "attackFlow": [
+    "1. Roll d20 + ability mod + proficiency (if proficient)",
+    "2. Natural 20 = critical hit (double damage dice). Natural 1 = auto miss.",
+    "3. If total >= target AC, hit. Roll damage dice + ability mod.",
+    "4. Melee: usually STR mod. Finesse weapons: STR or DEX. Ranged: DEX mod.",
+    "5. Spells: use spellcasting ability mod for spell attacks."
+  ],
+  "conditions": {
+    "blinded": "Disadvantage on attacks, attacks against have advantage",
+    "charmed": "Cannot attack charmer, charmer has advantage on social checks",
+    "frightened": "Disadvantage on checks/attacks while source visible, cannot willingly move closer",
+    "grappled": "Speed 0, ends if grappler incapacitated or effect moves target out of reach",
+    "incapacitated": "Cannot take actions or reactions",
+    "invisible": "Advantage on attacks, attacks against have disadvantage",
+    "paralyzed": "Incapacitated, auto-fail STR/DEX saves, attacks have advantage, hits within 5ft are crits",
+    "poisoned": "Disadvantage on attacks and ability checks",
+    "prone": "Disadvantage on attacks, melee attacks within 5ft have advantage, ranged have disadvantage",
+    "restrained": "Speed 0, disadvantage on attacks and DEX saves, attacks against have advantage",
+    "stunned": "Incapacitated, auto-fail STR/DEX saves, attacks have advantage",
+    "unconscious": "Incapacitated, prone, auto-fail STR/DEX saves, attacks have advantage, hits within 5ft are crits"
+  },
+  "deathSaves": {
+    "trigger": "Start of turn at 0 HP",
+    "dc": 10,
+    "successes": 3,
+    "failures": 3,
+    "nat20": "Regain 1 HP, conscious",
+    "nat1": "Counts as 2 failures",
+    "damageAt0": "1 death save failure (crit = 2 failures)"
+  },
+  "cover": {
+    "half": "+2 AC and DEX saves",
+    "threeQuarters": "+5 AC and DEX saves",
+    "total": "Cannot be targeted directly"
+  },
+  "rest": {
+    "short": "1+ hours. Spend hit dice to heal (roll hit die + CON mod per die).",
+    "long": "8+ hours. Regain all HP. Regain up to half total hit dice (min 1). Reset spell slots."
+  }
+}

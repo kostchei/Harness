@@ -14,5 +14,8 @@
   <ItemGroup>
     <!-- Exclude gdUnit4 addon's internal tests - not part of our project -->
     <Compile Remove="addons/gdUnit4/test/**/*.cs" />
+    <!-- Exclude DndServer's build artifacts so Godot doesn't pick them up -->
+    <Compile Remove="bin/dnd-server/**" />
+    <Compile Remove="obj/dnd-server/**" />
   </ItemGroup>
 </Project>

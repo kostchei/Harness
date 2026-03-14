@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <BaseOutputPath>bin\dnd-server\</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj\dnd-server\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="OpenAI" Version="2.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="agents\dnd\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="agents\dnd\rules\*.json" CopyToOutputDirectory="PreserveNewest" LinkBase="rules" />
+  </ItemGroup>
+</Project>

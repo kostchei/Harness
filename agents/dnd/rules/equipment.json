@@ -1,0 +1,56 @@
+{
+  "_note": "SRD 5e equipment. Compact weapon/armor/gear tables.",
+  "weapons": {
+    "simple_melee": {
+      "club":        { "dmg": "1d4 bludgeoning", "props": ["light"], "cost": "1sp" },
+      "dagger":      { "dmg": "1d4 piercing",    "props": ["finesse","light","thrown 20/60"], "cost": "2gp" },
+      "greatclub":   { "dmg": "1d8 bludgeoning", "props": ["two-handed"], "cost": "2sp" },
+      "handaxe":     { "dmg": "1d6 slashing",    "props": ["light","thrown 20/60"], "cost": "5gp" },
+      "javelin":     { "dmg": "1d6 piercing",    "props": ["thrown 30/120"], "cost": "5sp" },
+      "mace":        { "dmg": "1d6 bludgeoning", "props": [], "cost": "5gp" },
+      "quarterstaff":{ "dmg": "1d6 bludgeoning", "props": ["versatile 1d8"], "cost": "2sp" },
+      "spear":       { "dmg": "1d6 piercing",    "props": ["thrown 20/60","versatile 1d8"], "cost": "1gp" }
+    },
+    "simple_ranged": {
+      "light crossbow": { "dmg": "1d8 piercing", "props": ["ammunition 80/320","loading","two-handed"], "cost": "25gp" },
+      "shortbow":       { "dmg": "1d6 piercing", "props": ["ammunition 80/320","two-handed"], "cost": "25gp" }
+    },
+    "martial_melee": {
+      "battleaxe":  { "dmg": "1d8 slashing",  "props": ["versatile 1d10"], "cost": "10gp" },
+      "greatsword": { "dmg": "2d6 slashing",  "props": ["heavy","two-handed"], "cost": "50gp" },
+      "greataxe":   { "dmg": "1d12 slashing", "props": ["heavy","two-handed"], "cost": "30gp" },
+      "longsword":  { "dmg": "1d8 slashing",  "props": ["versatile 1d10"], "cost": "15gp" },
+      "morningstar":{ "dmg": "1d8 piercing",  "props": [], "cost": "15gp" },
+      "rapier":     { "dmg": "1d8 piercing",  "props": ["finesse"], "cost": "25gp" },
+      "scimitar":   { "dmg": "1d6 slashing",  "props": ["finesse","light"], "cost": "25gp" },
+      "shortsword": { "dmg": "1d6 piercing",  "props": ["finesse","light"], "cost": "10gp" },
+      "warhammer":  { "dmg": "1d8 bludgeoning","props": ["versatile 1d10"], "cost": "15gp" }
+    },
+    "martial_ranged": {
+      "hand crossbow": { "dmg": "1d6 piercing", "props": ["ammunition 30/120","light","loading"], "cost": "75gp" },
+      "heavy crossbow": { "dmg": "1d10 piercing","props": ["ammunition 100/400","heavy","loading","two-handed"], "cost": "50gp" },
+      "longbow":        { "dmg": "1d8 piercing", "props": ["ammunition 150/600","heavy","two-handed"], "cost": "50gp" }
+    }
+  },
+  "armor": {
+    "light": {
+      "padded":  { "ac": "11+DEX", "stealth": "disadvantage", "cost": "5gp" },
+      "leather": { "ac": "11+DEX", "stealth": null, "cost": "10gp" },
+      "studded leather": { "ac": "12+DEX", "stealth": null, "cost": "45gp" }
+    },
+    "medium": {
+      "hide":       { "ac": "12+DEX(max2)", "stealth": null, "cost": "10gp" },
+      "chain shirt":{ "ac": "13+DEX(max2)", "stealth": null, "cost": "50gp" },
+      "scale mail": { "ac": "14+DEX(max2)", "stealth": "disadvantage", "cost": "50gp" },
+      "breastplate":{ "ac": "14+DEX(max2)", "stealth": null, "cost": "400gp" },
+      "half plate": { "ac": "15+DEX(max2)", "stealth": "disadvantage", "cost": "750gp" }
+    },
+    "heavy": {
+      "ring mail":  { "ac": 14, "strReq": null, "stealth": "disadvantage", "cost": "30gp" },
+      "chain mail": { "ac": 16, "strReq": 13,   "stealth": "disadvantage", "cost": "75gp" },
+      "splint":     { "ac": 17, "strReq": 15,   "stealth": "disadvantage", "cost": "200gp" },
+      "plate":      { "ac": 18, "strReq": 15,   "stealth": "disadvantage", "cost": "1500gp" }
+    },
+    "shield": { "ac": "+2", "cost": "10gp" }
+  }
+}

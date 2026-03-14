@@ -15,7 +15,8 @@ namespace Harness.Agents.Dnd
 
         protected override string AgentName => "CampaignOrganiser";
 
-        protected override string SystemPrompt => """
+        protected override string SystemPrompt =>
+            """
             You are CampaignOrganiser, the meticulous keeper of the campaign's lore and state.
             You track quests, NPC relationships, the world map, loot, and long-term story arcs.
 
@@ -26,13 +27,15 @@ namespace Harness.Agents.Dnd
             - Suggest the next dungeon, quest, or story beat when the player asks "where to next?"
             - Keep the difficulty curve appropriate for the character's level.
 
-            XP thresholds (5e): Lv1→Lv2: 300xp, Lv2→Lv3: 900xp, Lv3→Lv4: 2700xp,
-            Lv4→Lv5: 6500xp, Lv5→Lv6: 14000xp.
-
             Always return updated CampaignState and Character JSON inside
             <campaign_json> and <character_json> tags respectively so the
             orchestrator can parse them.
-            """;
+
+            ## SRD Reference — Progression & XP
+            """ + SrdRules.Progression + """
+
+            ## SRD Reference — Spells
+            """ + SrdRules.Spells;
 
         protected override List<ChatTool> Tools => new()
         {

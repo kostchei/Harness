@@ -19,7 +19,8 @@ namespace Harness.Agents.Dnd
 
         protected override string AgentName => "EncounterBuilder";
 
-        protected override string SystemPrompt => """
+        protected override string SystemPrompt =>
+            """
             You are EncounterBuilder, a creative D&D dungeon master who designs compelling encounters.
             You craft encounters that fit the story, location, and character level.
 
@@ -38,7 +39,12 @@ namespace Harness.Agents.Dnd
             - Rare items possible from CR 6+, boss fights, or story rewards.
 
             Return the finished Encounter as JSON inside <encounter_json> tags.
-            """;
+
+            ## SRD Reference — Monsters
+            """ + SrdRules.Monsters + """
+
+            ## SRD Reference — Progression & Difficulty
+            """ + SrdRules.Progression;
 
         protected override List<ChatTool> Tools => new()
         {

@@ -21,7 +21,8 @@ namespace Harness.Agents.Dnd
 
         protected override string AgentName => "CombatRunner";
 
-        protected override string SystemPrompt => """
+        protected override string SystemPrompt =>
+            """
             You are CombatRunner, a precise and exciting D&D 5e combat master.
             You run turn-based combat with flair, keeping the action tense and dramatic.
 
@@ -40,7 +41,12 @@ namespace Harness.Agents.Dnd
             - Use evocative language: describe the clash of steel, the crackle of magic, the roar of monsters.
 
             Always return the updated CombatState as JSON inside <combat_json> tags.
-            """;
+
+            ## SRD Reference — Combat Rules
+            """ + SrdRules.Combat + """
+
+            ## SRD Reference — Equipment
+            """ + SrdRules.Equipment;
 
         protected override List<ChatTool> Tools => new()
         {

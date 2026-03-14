@@ -19,7 +19,8 @@ namespace Harness.Agents.Dnd
 
         protected override string AgentName => "CharacterCreator";
 
-        protected override string SystemPrompt => """
+        protected override string SystemPrompt =>
+            """
             You are CharacterCreator, an expert Dungeons & Dragons 5th Edition character creation guide.
             Your job is to help the player create a memorable, mechanically sound character.
 
@@ -37,7 +38,12 @@ namespace Harness.Agents.Dnd
 
             Always respond in-character as a wise sage welcoming the hero to the world.
             Return the final Character data inside <character_json> tags so the orchestrator can parse it.
-            """;
+
+            ## SRD Reference — Classes
+            """ + SrdRules.Classes + """
+
+            ## SRD Reference — Races
+            """ + SrdRules.Races;
 
         protected override List<ChatTool> Tools => new()
         {

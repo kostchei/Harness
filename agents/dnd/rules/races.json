@@ -1,0 +1,66 @@
+{
+  "_note": "SRD 5e races. Ability bonuses, speed, traits.",
+  "human": {
+    "abilityBonus": { "STR": 1, "DEX": 1, "CON": 1, "INT": 1, "WIS": 1, "CHA": 1 },
+    "speed": 30, "size": "Medium",
+    "traits": ["Extra language"],
+    "languages": ["Common", "one extra"]
+  },
+  "elf": {
+    "abilityBonus": { "DEX": 2 },
+    "speed": 30, "size": "Medium",
+    "traits": ["Darkvision 60ft", "Keen Senses (proficiency: Perception)", "Fey Ancestry (advantage vs charm, immune to magic sleep)", "Trance (4hr long rest instead of 8hr sleep)"],
+    "languages": ["Common", "Elvish"],
+    "subraces": {
+      "high elf": { "bonus": { "INT": 1 }, "traits": ["1 wizard cantrip", "Extra language"] },
+      "wood elf": { "bonus": { "WIS": 1 }, "traits": ["Fleet of Foot (speed 35)", "Mask of the Wild (hide in light nature cover)"] }
+    }
+  },
+  "dwarf": {
+    "abilityBonus": { "CON": 2 },
+    "speed": 25, "size": "Medium",
+    "traits": ["Darkvision 60ft", "Dwarven Resilience (advantage vs poison, resistance to poison damage)", "Stonecunning (double proficiency on History checks about stonework)", "Speed not reduced by heavy armor"],
+    "languages": ["Common", "Dwarvish"],
+    "subraces": {
+      "hill dwarf": { "bonus": { "WIS": 1 }, "traits": ["Dwarven Toughness (+1 HP per level)"] },
+      "mountain dwarf": { "bonus": { "STR": 2 }, "traits": ["Dwarven Armor Training (light + medium armor proficiency)"] }
+    }
+  },
+  "halfling": {
+    "abilityBonus": { "DEX": 2 },
+    "speed": 25, "size": "Small",
+    "traits": ["Lucky (reroll natural 1 on attack/ability/save)", "Brave (advantage vs frightened)", "Halfling Nimbleness (move through space of larger creature)"],
+    "languages": ["Common", "Halfling"],
+    "subraces": {
+      "lightfoot": { "bonus": { "CHA": 1 }, "traits": ["Naturally Stealthy (hide behind medium+ creature)"] },
+      "stout": { "bonus": { "CON": 1 }, "traits": ["Stout Resilience (advantage vs poison, resistance to poison damage)"] }
+    }
+  },
+  "gnome": {
+    "abilityBonus": { "INT": 2 },
+    "speed": 25, "size": "Small",
+    "traits": ["Darkvision 60ft", "Gnome Cunning (advantage on INT/WIS/CHA saves vs magic)"],
+    "languages": ["Common", "Gnomish"],
+    "subraces": {
+      "rock gnome": { "bonus": { "CON": 1 }, "traits": ["Artificer's Lore (double prof on History checks about magic/tech)", "Tinker (build clockwork toys)"] }
+    }
+  },
+  "halfOrc": {
+    "abilityBonus": { "STR": 2, "CON": 1 },
+    "speed": 30, "size": "Medium",
+    "traits": ["Darkvision 60ft", "Menacing (proficiency: Intimidation)", "Relentless Endurance (drop to 1 HP instead of 0, 1/long rest)", "Savage Attacks (extra damage die on melee crit)"],
+    "languages": ["Common", "Orc"]
+  },
+  "tiefling": {
+    "abilityBonus": { "CHA": 2, "INT": 1 },
+    "speed": 30, "size": "Medium",
+    "traits": ["Darkvision 60ft", "Hellish Resistance (resistance to fire damage)", "Infernal Legacy (thaumaturgy cantrip; hellish rebuke at 3rd level; darkness at 5th level, 1/long rest each)"],
+    "languages": ["Common", "Infernal"]
+  },
+  "dragonborn": {
+    "abilityBonus": { "STR": 2, "CHA": 1 },
+    "speed": 30, "size": "Medium",
+    "traits": ["Draconic Ancestry (choose dragon type: determines breath weapon damage type and resistance)", "Breath Weapon (2d6 at 1st, scales; DC = 8+CON+prof; 5ft-by-30ft line or 15ft cone; 1/short rest)", "Damage Resistance (type from ancestry)"],
+    "languages": ["Common", "Draconic"]
+  }
+}

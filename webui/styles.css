@@ -158,3 +158,196 @@ pre {
     grid-column: 1 / -1;
   }
 }
+
+/* ─── D&D Campaign UI ─────────────────────────────────────────── */
+
+.dnd-app {
+  max-width: 1400px;
+}
+
+.dnd-sidebar {
+  grid-column: 1 / 4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+}
+
+.dnd-sidebar summary {
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.dnd-chat-area {
+  grid-column: 4 / -1;
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+  max-height: calc(100vh - 6rem);
+}
+
+.dnd-phase-bar {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.dnd-phase {
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: var(--bg);
+}
+
+.dnd-phase.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.dnd-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dnd-msg {
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  max-width: 85%;
+  line-height: 1.5;
+}
+
+.dnd-msg--dm {
+  background: #e8f5ee;
+  border-left: 3px solid var(--accent);
+  align-self: flex-start;
+}
+
+.dnd-msg--player {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  align-self: flex-end;
+}
+
+.dnd-msg--system {
+  background: transparent;
+  color: var(--muted);
+  font-style: italic;
+  align-self: center;
+  font-size: 0.9rem;
+}
+
+.dnd-thinking .dots::after {
+  content: '...';
+  animation: dnd-dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dnd-dots {
+  0%   { content: '.'; }
+  33%  { content: '..'; }
+  66%  { content: '...'; }
+}
+
+.dnd-input-area {
+  border-top: 1px solid var(--border);
+  padding: 0.75rem;
+  flex-shrink: 0;
+}
+
+.dnd-start-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.dnd-start-row label { flex: 1; margin-bottom: 0; }
+
+.dnd-input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.dnd-input-row textarea { flex: 1; resize: none; }
+.dnd-input-row button { min-width: 80px; }
+
+.dnd-info-block {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.dnd-stat-line {
+  margin-bottom: 0.2rem;
+}
+
+.dnd-muted {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.dnd-quest-list {
+  margin: 0.25rem 0 0.5rem;
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+}
+
+.dnd-hp-bar {
+  height: 10px;
+  background: var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 0.2rem 0 0.4rem;
+}
+
+.dnd-hp-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+.dnd-abilities {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.3rem;
+  margin: 0.4rem 0;
+}
+
+.dnd-ability {
+  text-align: center;
+  padding: 0.3rem;
+  background: var(--bg);
+  border-radius: 6px;
+}
+
+.dnd-ability-label {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.dnd-ability-score {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 960px) {
+  .dnd-sidebar { grid-column: 1 / -1; max-height: none; }
+  .dnd-chat-area { grid-column: 1 / -1; }
+}

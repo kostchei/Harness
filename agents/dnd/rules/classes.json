@@ -1,0 +1,123 @@
+{
+  "_note": "SRD 5e classes. hd=hit die, hp1=level 1 HP formula, hpUp=HP per level after 1.",
+  "fighter": {
+    "hd": 10, "primary": "STR or DEX", "saves": ["STR","CON"],
+    "armor": ["light","medium","heavy","shields"], "weapons": ["simple","martial"],
+    "hp1": "10+CON", "hpUp": "1d10+CON",
+    "skills": { "pick": 2, "from": ["Acrobatics","Animal Handling","Athletics","History","Insight","Intimidation","Perception","Survival"] },
+    "features": {
+      "1": ["Fighting Style","Second Wind (bonus action: 1d10+level HP, 1/short rest)"],
+      "2": ["Action Surge (extra action, 1/short rest)"],
+      "3": ["Martial Archetype (Champion/Battle Master/Eldritch Knight)"],
+      "4": ["ASI (+2 to one ability or +1 to two, max 20)"],
+      "5": ["Extra Attack (2 attacks per Attack action)"]
+    },
+    "startGear": ["chain mail OR leather+longbow+20arrows", "martial weapon+shield OR 2x martial weapons", "light crossbow+20bolts OR 2x handaxes", "dungeoneer's pack OR explorer's pack"]
+  },
+  "wizard": {
+    "hd": 6, "primary": "INT", "saves": ["INT","WIS"],
+    "armor": [], "weapons": ["daggers","darts","slings","quarterstaffs","light crossbows"],
+    "hp1": "6+CON", "hpUp": "1d6+CON",
+    "skills": { "pick": 2, "from": ["Arcana","History","Insight","Investigation","Medicine","Religion"] },
+    "features": {
+      "1": ["Spellcasting (INT, prepared from spellbook)","Arcane Recovery (1/day on short rest, recover spell slots up to half level rounded up)"],
+      "2": ["Arcane Tradition (Evocation/Abjuration/etc)"],
+      "3": [],
+      "4": ["ASI"],
+      "5": []
+    },
+    "spellSlots": { "1": [2], "2": [3], "3": [4,2], "4": [4,3], "5": [4,3,2] },
+    "cantripsKnown": { "1": 3, "4": 4, "10": 5 },
+    "startGear": ["quarterstaff OR dagger", "component pouch OR arcane focus", "scholar's pack OR explorer's pack", "spellbook"]
+  },
+  "rogue": {
+    "hd": 8, "primary": "DEX", "saves": ["DEX","INT"],
+    "armor": ["light"], "weapons": ["simple","hand crossbows","longswords","rapiers","shortswords"],
+    "hp1": "8+CON", "hpUp": "1d8+CON",
+    "skills": { "pick": 4, "from": ["Acrobatics","Athletics","Deception","Insight","Intimidation","Investigation","Perception","Performance","Persuasion","Sleight of Hand","Stealth"] },
+    "features": {
+      "1": ["Sneak Attack (1d6 extra, finesse/ranged + advantage or ally within 5ft)","Thieves' Cant","Expertise (double proficiency on 2 skills)"],
+      "2": ["Cunning Action (bonus action: Dash, Disengage, or Hide)"],
+      "3": ["Roguish Archetype (Thief/Assassin/Arcane Trickster)","Sneak Attack 2d6"],
+      "4": ["ASI"],
+      "5": ["Uncanny Dodge (reaction: halve attack damage)","Sneak Attack 3d6"]
+    },
+    "startGear": ["rapier OR shortsword", "shortbow+quiver+20arrows OR shortsword", "burglar's pack OR dungeoneer's pack OR explorer's pack", "leather armor, 2x daggers, thieves' tools"]
+  },
+  "cleric": {
+    "hd": 8, "primary": "WIS", "saves": ["WIS","CHA"],
+    "armor": ["light","medium","shields"], "weapons": ["simple"],
+    "hp1": "8+CON", "hpUp": "1d8+CON",
+    "skills": { "pick": 2, "from": ["History","Insight","Medicine","Persuasion","Religion"] },
+    "features": {
+      "1": ["Spellcasting (WIS, prepared from full cleric list)","Divine Domain (Life/Light/War/etc, grants bonus spells+features)"],
+      "2": ["Channel Divinity (1/short rest, Turn Undead + domain feature)"],
+      "3": [],
+      "4": ["ASI"],
+      "5": ["Destroy Undead (CR 1/2)"]
+    },
+    "spellSlots": { "1": [2], "2": [3], "3": [4,2], "4": [4,3], "5": [4,3,2] },
+    "cantripsKnown": { "1": 3, "4": 4, "10": 5 },
+    "startGear": ["mace OR warhammer (if proficient)", "scale mail OR leather OR chain mail (if proficient)", "light crossbow+20bolts OR any simple weapon", "priest's pack OR explorer's pack", "shield, holy symbol"]
+  },
+  "ranger": {
+    "hd": 10, "primary": "DEX and WIS", "saves": ["STR","DEX"],
+    "armor": ["light","medium","shields"], "weapons": ["simple","martial"],
+    "hp1": "10+CON", "hpUp": "1d10+CON",
+    "skills": { "pick": 3, "from": ["Animal Handling","Athletics","Insight","Investigation","Nature","Perception","Stealth","Survival"] },
+    "features": {
+      "1": ["Favored Enemy (advantage on tracking, INT checks about them)","Natural Explorer (double proficiency on INT/WIS checks in terrain, difficult terrain no penalty)"],
+      "2": ["Fighting Style","Spellcasting (WIS, known spells: 2)"],
+      "3": ["Ranger Archetype (Hunter/Beast Master)","Primeval Awareness"],
+      "4": ["ASI"],
+      "5": ["Extra Attack"]
+    },
+    "spellSlots": { "2": [2], "3": [3], "4": [3], "5": [4,2] },
+    "startGear": ["scale mail OR leather", "2x shortswords OR 2x simple melee weapons", "dungeoneer's pack OR explorer's pack", "longbow, quiver, 20 arrows"]
+  },
+  "paladin": {
+    "hd": 10, "primary": "STR and CHA", "saves": ["WIS","CHA"],
+    "armor": ["light","medium","heavy","shields"], "weapons": ["simple","martial"],
+    "hp1": "10+CON", "hpUp": "1d10+CON",
+    "skills": { "pick": 2, "from": ["Athletics","Insight","Intimidation","Medicine","Persuasion","Religion"] },
+    "features": {
+      "1": ["Divine Sense (detect celestial/fiend/undead, CHA mod + 1 uses/long rest)","Lay on Hands (pool of 5*level HP, touch to heal or cure disease for 5hp)"],
+      "2": ["Fighting Style","Spellcasting (CHA, prepared)","Divine Smite (on hit: spend spell slot for 2d8+1d8/slot level radiant, +1d8 vs undead/fiend)"],
+      "3": ["Sacred Oath (Devotion/Ancients/Vengeance)","Channel Divinity"],
+      "4": ["ASI"],
+      "5": ["Extra Attack"]
+    },
+    "spellSlots": { "2": [2], "3": [3], "4": [3], "5": [4,2] },
+    "startGear": ["martial weapon+shield OR 2x martial weapons", "5x javelins OR any simple melee weapon", "priest's pack OR explorer's pack", "chain mail, holy symbol"]
+  },
+  "barbarian": {
+    "hd": 12, "primary": "STR", "saves": ["STR","CON"],
+    "armor": ["light","medium","shields"], "weapons": ["simple","martial"],
+    "hp1": "12+CON", "hpUp": "1d12+CON",
+    "skills": { "pick": 2, "from": ["Animal Handling","Athletics","Intimidation","Nature","Perception","Survival"] },
+    "features": {
+      "1": ["Rage (bonus action: advantage on STR checks/saves, +2 melee dmg, resist bludgeoning/piercing/slashing; 2 rages/long rest)","Unarmored Defense (AC = 10+DEX+CON when no armor)"],
+      "2": ["Reckless Attack (advantage on melee STR attacks this turn, attacks against you have advantage)","Danger Sense (advantage on DEX saves you can see)"],
+      "3": ["Primal Path (Berserker/Totem Warrior)","Rages: 3"],
+      "4": ["ASI"],
+      "5": ["Extra Attack","Fast Movement (+10ft speed when not in heavy armor)"]
+    },
+    "startGear": ["greataxe OR any martial melee weapon", "2x handaxes OR any simple weapon", "explorer's pack, 4x javelins"]
+  },
+  "bard": {
+    "hd": 8, "primary": "CHA", "saves": ["DEX","CHA"],
+    "armor": ["light"], "weapons": ["simple","hand crossbows","longswords","rapiers","shortswords"],
+    "hp1": "8+CON", "hpUp": "1d8+CON",
+    "skills": { "pick": 3, "from": ["any"] },
+    "features": {
+      "1": ["Spellcasting (CHA, known spells: 4)","Bardic Inspiration (bonus action: give ally 1d6 to add to one roll within 10 min; CHA mod uses/long rest)"],
+      "2": ["Jack of All Trades (add half proficiency to non-proficient checks)","Song of Rest (short rest: allies regain extra 1d6 HP)"],
+      "3": ["Bard College (Lore/Valor)","Expertise (2 skills)"],
+      "4": ["ASI"],
+      "5": ["Bardic Inspiration d8","Font of Inspiration (regain on short rest)"]
+    },
+    "spellSlots": { "1": [2], "2": [3], "3": [4,2], "4": [4,3], "5": [4,3,2] },
+    "cantripsKnown": { "1": 2, "4": 3, "10": 4 },
+    "startGear": ["rapier OR longsword OR any simple weapon", "diplomat's pack OR entertainer's pack", "lute OR any musical instrument", "leather armor, dagger"]
+  }
+}

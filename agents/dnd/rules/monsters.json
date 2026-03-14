@@ -1,0 +1,31 @@
+{
+  "_note": "CR stat benchmarks and sample SRD monsters. Stats are typical ranges.",
+  "crBenchmarks": {
+    "_cols": ["cr", "profBonus", "ac", "hpRange", "atkBonus", "dmgPerRound", "saveDC"],
+    "0":   [2, 13, "1-6",      3,  "0-1",    13],
+    "0.125": [2, 13, "7-35",   3,  "2-3",    13],
+    "0.25":[2, 13, "36-49",    3,  "4-5",    13],
+    "0.5": [2, 13, "50-70",    3,  "6-8",    13],
+    "1":   [2, 13, "71-85",    3,  "9-14",   13],
+    "2":   [2, 13, "86-100",   3,  "15-20",  13],
+    "3":   [2, 13, "101-115",  4,  "21-26",  13],
+    "4":   [2, 14, "116-130",  5,  "27-32",  14],
+    "5":   [3, 15, "131-145",  6,  "33-38",  15],
+    "6":   [3, 15, "146-160",  6,  "39-44",  15],
+    "7":   [3, 15, "161-175",  6,  "45-50",  15],
+    "8":   [3, 16, "176-190",  7,  "51-56",  16],
+    "9":   [4, 16, "191-205",  7,  "57-62",  16],
+    "10":  [4, 17, "206-220",  7,  "63-68",  16]
+  },
+  "sampleMonsters": {
+    "goblin":    { "cr": 0.25, "hp": 7,  "ac": 15, "spd": 30, "str": 8,  "dex": 14, "con": 10, "atk": "+4 1d6+2 slashing", "trait": "Nimble Escape (Disengage/Hide as bonus)" },
+    "skeleton":  { "cr": 0.25, "hp": 13, "ac": 13, "spd": 30, "str": 10, "dex": 14, "con": 15, "atk": "+4 1d6+2 piercing (shortbow) or +2 1d6 slashing (shortsword)", "trait": "Vulnerable to bludgeoning" },
+    "wolf":      { "cr": 0.25, "hp": 11, "ac": 13, "spd": 40, "str": 12, "dex": 15, "con": 12, "atk": "+4 2d4+2 piercing", "trait": "Pack Tactics, Bite knocks prone on DC11 STR save" },
+    "orc":       { "cr": 0.5,  "hp": 15, "ac": 13, "spd": 30, "str": 16, "dex": 12, "con": 16, "atk": "+5 1d12+3 slashing (greataxe)", "trait": "Aggressive (bonus action: move up to speed toward enemy)" },
+    "bugbear":   { "cr": 1,    "hp": 27, "ac": 16, "spd": 30, "str": 15, "dex": 14, "con": 13, "atk": "+4 2d8+2 piercing (morningstar)", "trait": "Surprise Attack +2d6 on first hit" },
+    "ogre":      { "cr": 2,    "hp": 59, "ac": 11, "spd": 40, "str": 19, "dex": 8,  "con": 16, "atk": "+6 2d8+4 bludgeoning (greatclub)", "trait": "Large, simple brute" },
+    "owlbear":   { "cr": 3,    "hp": 59, "ac": 13, "spd": 40, "str": 20, "dex": 12, "con": 17, "atk": "+7 2d8+5 slashing (claws) or +7 1d10+5 piercing (beak)", "trait": "Keen Sight/Smell, multiattack (beak+claws)" },
+    "troll":     { "cr": 5,    "hp": 84, "ac": 15, "spd": 30, "str": 18, "dex": 13, "con": 20, "atk": "+7 2d6+4 slashing (claws x2) + 1d6+4 piercing (bite)", "trait": "Regeneration 10hp/turn, stops on fire/acid damage" },
+    "youngDragon": { "cr": 7, "hp": 136, "ac": 18, "spd": 40, "str": 19, "dex": 10, "con": 17, "atk": "+7 2d10+4 piercing (bite) + 2x 2d6+4 slashing (claws)", "trait": "Breath weapon (recharge 5-6), flying 80ft" }
+  }
+}
